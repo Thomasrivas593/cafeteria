@@ -3,7 +3,7 @@ import sqlite3
 from modelo import inicializar_db, Producto
 
 app = Flask(__name__)
-
+#prueba
 # Ejecutamos la función para asegurar que la tabla exista al iniciar
 inicializar_db() 
 
