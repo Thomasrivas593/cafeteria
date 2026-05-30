@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Cafetería</title>
+</head>
+<body>
+    <h1>Inventario de la Cafetería</h1>
+    <h2>Valor total del Inventario: ${{ valor_total }}</h2>
+    <h3>Cargar Nuevo Producto</h3>
+    <form action="/agregar" method="POST">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required>
+        
+        <label>Categoría:</label>
+        <select name="categoria">
+            <option value="Bebida">Bebida</option>
+            <option value="Comida">Comida</option>
+            <option value="Snack">Snack</option>
+        </select>
+        
+        <label>Precio:</label>
+        <input type="number" step="0.01" name="precio" required>
+        
+        <label>Stock Inicial:</label>
+        <input type="number" name="stock" required>
+        
+        <button type="submit">Guardar Producto</button>
+    </form>
+    <br><hr><br>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acción</th>
+            <th>Reponer Stock</th>
+        </tr>
+        
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto[0] }}</td> <td>{{ producto[1] }}</td> <td>{{ producto[2] }}</td> <td>${{ producto[3] }}</td> <td>{{ producto[4] }}</td> <td>
+                <form action="/vender/{{ producto[0] }}" method="POST">
+                    <button type="submit">Vender 1 unidad</button>
+                </form>
+                <td>
+                <form action="/reponer/{{ producto[0] }}" method="POST">
+                    <input type="number" name="cantidad_reposicion" value="5" min="1" style="width: 50px;">
+                    <button type="submit">Reponer</button>
+                </form>
+            </td>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
